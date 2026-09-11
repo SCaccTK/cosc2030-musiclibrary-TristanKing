@@ -182,3 +182,75 @@ void saveLibraryToFile(const vector<Track>& library, const string& filename) {
 
     cout << "\nLibrary saved successfully!" << endl;
 }
+
+void loadLibraryFromFile(vector<Track>& library, const string& filename) {
+
+    ifstream inFile(filename, ios::binary);
+
+    if (!inFile) {
+        cout << "Error opening file." << endl;
+        return;
+    }
+
+    library.clear();
+
+
+    size_t numberOfTracks;
+
+    inFile.read(reinterpret_cast<char*>(&numberOfTracks),
+                sizeof(numberOfTracks));
+
+    // Read each track
+    for (size_t i = 0; i < numberOfTracks; i++) {
+
+        Track track;
+
+        size_t length;
+
+
+        inFile.read(reinterpret_cast<char*>(&length),
+                    sizeof(length));
+
+        track.title.resize(length);
+
+        inFile.read(&track.title[0], length);
+
+
+        inFile.read(reinterpret_cast<char*>(&length),
+                    sizeof(length));
+
+        track.artist.resize(length);
+
+        inFile.read(&track.artist[0], length);
+
+
+        inFile.read(reinterpret_cast<char*>(&length),
+                    sizeof(length));
+
+        track.album.resize(length);
+
+        inFile.read(&track.album[0], length);
+
+
+        inFile.read(reinterpret_cast<char*>(&track.duration),
+                    sizeof(track.duration));
+
+        inFile.read(reinterpret_cast<char*>(&length),
+                    sizeof(length));
+
+        track.genre.resize(length);
+
+        inFile.read(&track.genre[0], length);
+
+
+        inFile.read(reinterpret_cast<char*>(&track.year),
+                    sizeof(track.year));
+
+
+        library.push_back(track);
+    }
+
+    inFile.close();
+
+    cout << "\nLibrary loaded successfully!" << endl;
+}
