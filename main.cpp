@@ -21,6 +21,34 @@ void displayLibrary(const vector<Track>& library);
 void saveLibraryToFile(const vector<Track>& library, const string& filename);
 void loadLibraryFromFile(vector<Track>& library, const string& filename);
 void printMenu();
+void addTrack(vector<Track>& library) {
+
+    Track newTrack;
+
+    cout << "\nEnter track title: ";
+    getline(cin, newTrack.title);
+
+    cout << "Enter artist: ";
+    getline(cin, newTrack.artist);
+
+    cout << "Enter album: ";
+    getline(cin, newTrack.album);
+
+    cout << "Enter duration in seconds: ";
+    cin >> newTrack.duration;
+    cin.ignore();
+
+    cout << "Enter genre: ";
+    getline(cin, newTrack.genre);
+
+    cout << "Enter release year: ";
+    cin >> newTrack.year;
+    cin.ignore();
+
+    library.push_back(newTrack);
+
+    cout << "Track added!" << endl;
+}
 
 int main() {
 
@@ -65,4 +93,15 @@ int main() {
     } while (choice != 5);
 
     return 0;
+}
+
+void printMenu() {
+
+    cout << "\n===== MUSIC LIBRARY =====" << endl;
+    cout << "1. Add Track" << endl;
+    cout << "2. Display Library" << endl;
+    cout << "3. Save Library" << endl;
+    cout << "4. Load Library" << endl;
+    cout << "5. Exit" << endl;
+    cout << "Enter your choice: ";
 }
