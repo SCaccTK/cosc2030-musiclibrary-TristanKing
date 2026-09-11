@@ -105,3 +105,24 @@ void printMenu() {
     cout << "5. Exit" << endl;
     cout << "Enter your choice: ";
 }
+
+void displayLibrary(const vector<Track>& library) {
+
+    if (library.empty()) {
+        cout << "\nThe library is empty." << endl;
+        return;
+    }
+
+    cout << "\n===== MUSIC LIBRARY =====" << endl;
+
+    for (int i = 0; i < library.size(); i++) {
+
+        cout << "\nTrack #" << i + 1 << endl;
+        cout << "Title: " << library[i].title << endl;
+        cout << "Artist: " << library[i].artist << endl;
+        cout << "Album: " << library[i].album << endl;
+        cout << "Duration: " << library[i].duration << " seconds" << endl;
+        cout << "Genre: " << library[i].genre << endl;
+        cout << "Year: " << library[i].year << endl;
+    }
+}
