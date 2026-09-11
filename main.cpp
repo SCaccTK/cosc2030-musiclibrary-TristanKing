@@ -23,6 +23,46 @@ void loadLibraryFromFile(vector<Track>& library, const string& filename);
 void printMenu();
 
 int main() {
-    cout << "Hello, World!" << endl;
+
+    vector<Track> library;
+
+    const string filename = "musicLibrary.dat";
+
+    int choice;
+
+    do {
+
+        printMenu();
+        cin >> choice;
+        cin.ignore();
+
+        switch (choice) {
+
+        case 1:
+            addTrack(library);
+            break;
+
+        case 2:
+            displayLibrary(library);
+            break;
+
+        case 3:
+            saveLibraryToFile(library, filename);
+            break;
+
+        case 4:
+            loadLibraryFromFile(library, filename);
+            break;
+
+        case 5:
+            cout << "Exiting program..." << endl;
+            break;
+
+        default:
+            cout << "Invalid choice." << endl;
+        }
+
+    } while (choice != 5);
+
     return 0;
 }
