@@ -126,3 +126,59 @@ void displayLibrary(const vector<Track>& library) {
         cout << "Year: " << library[i].year << endl;
     }
 }
+// saving system for library!!
+void saveLibraryToFile(const vector<Track>& library, const string& filename) {
+
+    ofstream outFile(filename, ios::binary);
+
+    if (!outFile) {
+        cout << "Error opening file." << endl;
+        return;
+    }
+
+    // num of tracks
+    size_t numberOfTracks = library.size();
+
+    outFile.write(reinterpret_cast<const char*>(&numberOfTracks),
+                  sizeof(numberOfTracks));
+
+    // track
+    for (const Track& track : library) {
+
+        // title
+        size_t length = track.title.size();
+        outFile.write(reinterpret_cast<const char*>(&length),
+                      sizeof(length));
+        outFile.write(track.title.c_str(), length);
+
+        // artist
+        length = track.artist.size();
+        outFile.write(reinterpret_cast<const char*>(&length),
+                      sizeof(length));
+        outFile.write(track.artist.c_str(), length);
+
+        // album
+        length = track.album.size();
+        outFile.write(reinterpret_cast<const char*>(&length),
+                      sizeof(length));
+        outFile.write(track.album.c_str(), length);
+
+        // length
+        outFile.write(reinterpret_cast<const char*>(&track.duration),
+                      sizeof(track.duration));
+
+        // type of music
+        length = track.genre.size();
+        outFile.write(reinterpret_cast<const char*>(&length),
+                      sizeof(length));
+        outFile.write(track.genre.c_str(), length);
+
+        // year
+        outFile.write(reinterpret_cast<const char*>(&track.year),
+                      sizeof(track.year));
+    }
+
+    outFile.close();
+
+    cout << "\nLibrary saved successfully!" << endl;
+}
